@@ -1,0 +1,16 @@
+name: Develop branch, Test environment deployment
+env:
+  API_TOKEN: ${{ secrets.API_TOKEN }}
+  TEST_ENVIRONMENT_UUID: ${{ secrets.TEST_ENVIRONMENT_UUID }}
+on:
+ push:
+  branches: [ develop ]
+
+jobs:
+ deploy:
+  runs-on: ubuntu-latest
+  steps:
+  - uses: actions/checkout@v3
+  - name: Deploy
+    run: |
+     curl -X POST --data "environment=$TEST_ENVIRONMENT_UUID" --header "Authorization: Token $API_TOKEN" https://api.divio.com/apps/v3/deployments/
