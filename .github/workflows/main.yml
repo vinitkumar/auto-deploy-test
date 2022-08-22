@@ -7,6 +7,13 @@ on:
   branches: [ main ]
 
 jobs:
+ backup:
+  runs-on: ubuntu-latest
+  steps:
+  - uses: actions/checkout@v3
+  - name: Backup
+    run: |
+      curl -X POST --data '{"environment=$LIVE_ENVIRONMENT_UUID, trigger=DEPLOYMENT, services=["q5e5gulgwnakrcppuwfbnflqzm"]' --header "Authorization: Token $API_TOKEN" https://api.divio.com/apps/v3/backups/
  deploy:
   runs-on: ubuntu-latest
   steps:
