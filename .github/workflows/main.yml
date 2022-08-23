@@ -2,6 +2,7 @@ name: Main branch, Live environment deployment
 env:
     API_TOKEN: ${{ secrets.API_TOKEN }}
     LIVE_ENVIRONMENT_UUID: ${{ secrets.LIVE_ENVIRONMENT_UUID }}
+    LIVE_SERVICE_UUID: ${{ secrets.LIVE_SERVICE_UUID }}
 on:
  push:
   branches: [ main ]

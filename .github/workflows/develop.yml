@@ -2,6 +2,7 @@ name: Develop branch, Test environment deployment
 env:
   API_TOKEN: ${{ secrets.API_TOKEN }}
   TEST_ENVIRONMENT_UUID: ${{ secrets.TEST_ENVIRONMENT_UUID }}
+  TEST_SERVICE_UUID: ${{ secrets.TEST_SERVICE_UUID }}
 on:
  push:
   branches: [ develop ]
@@ -21,7 +22,7 @@ jobs:
           "trigger": "MANUAL",
           "notes": "github actions backup",
           "services": [
-            "'"$LIVE_SERVICE_UUID"'"
+            "'"$TEST_SERVICE_UUID"'"
           ]
         }'
  deploy:
