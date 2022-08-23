@@ -15,13 +15,13 @@ jobs:
     run: |
       curl --location --request POST 'https://api.divio.com/apps/v3/backups/' \
         --header "Authorization: Token $API_TOKEN" \
-        --header 'Content-Type: application/json' \
+        --header "Content-Type: application/json" \
         --data-raw '{
           "environment": "'"$LIVE_ENVIRONMENT_UUID"'",
           "trigger": "MANUAL",
           "notes": "github actions backup",
           "services": [
-            "'"$TEST_SERVICE_UUID"'"
+            "'"$LIVE_SERVICE_UUID"'"
           ]
         }'
  deploy:
