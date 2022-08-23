@@ -1,4 +1,4 @@
-name: Main branch, Test environment deployment
+name: Main branch, Live environment deployment
 env:
     API_TOKEN: ${{ secrets.API_TOKEN }}
     LIVE_ENVIRONMENT_UUID: ${{ secrets.LIVE_ENVIRONMENT_UUID }}
@@ -13,7 +13,17 @@ jobs:
   - uses: actions/checkout@v3
   - name: Backup
     run: |
-      curl -X POST --data '{"environment=$LIVE_ENVIRONMENT_UUID, trigger=DEPLOYMENT, services=["q5e5gulgwnakrcppuwfbnflqzm"]' --header "Authorization: Token $API_TOKEN" https://api.divio.com/apps/v3/backups/
+      curl --location --request POST 'https://api.divio.com/apps/v3/backups/' \
+      --header 'Authorization: Token $API_TOKEN' \
+      --header 'Content-Type: application/json' \
+      --data-raw '{
+        "environment": "$LIVE_ENVIRONMENT_UUID",
+        "trigger": "MANUAL",
+        "notes": "github actions backup",
+        "services": [
+          "wxcl2ywwnbd4zkmps6732linzm"
+        ]
+      }'
  deploy:
   runs-on: ubuntu-latest
   steps:
